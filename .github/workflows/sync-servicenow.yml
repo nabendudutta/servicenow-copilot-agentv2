@@ -42,3 +42,6 @@ jobs:
           git add knowledge/
           git commit -m "Auto sync ServiceNow knowledge" || echo "No changes"
           git push
+      - name: rename to remove invalid characters from python file name 
+        run: |
+          python sync/rename_invalid_files.py
