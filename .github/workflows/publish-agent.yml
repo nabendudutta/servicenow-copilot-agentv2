@@ -60,6 +60,10 @@ jobs:
 
           echo "Build Time: $(date)" > build/build-info.txt
           echo "Commit: $GITHUB_SHA" >> build/build-info.txt
+          
+      - name: rename to remove invalid characters from python file name 
+        run: |
+          python sync/rename_invalid_files.py
 
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v4
