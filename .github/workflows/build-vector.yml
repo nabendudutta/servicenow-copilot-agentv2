@@ -27,7 +27,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
         run: |
-          python sync/embedding_builder.py
+          python sync/embedding_builder_github.py
 
       - name: Commit Vector DB
         run: |
