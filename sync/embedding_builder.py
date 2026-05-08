@@ -57,10 +57,13 @@ print(f"Created {len(chunks)} chunks")
 # Create Embeddings
 # ============================================
 
-embeddings = OpenAIEmbeddings(
-    api_key=os.getenv("GITHUB_TOKEN"),
-    base_url="https://models.inference.ai.azure.com"
-)
+#embeddings = OpenAIEmbeddings(
+ #   api_key=os.getenv("GITHUB_TOKEN"),
+  #  base_url="https://models.inference.ai.azure.com"
+#)
+
+embeddings = OpenAIEmbeddings(model="text-embedding-3-small")   # cheaper, good quality
+embeddings = OpenAIEmbeddings(model="text-embedding-3-large")   # best quality, higher cost
 
 vector_db = FAISS.from_documents(
     chunks,
