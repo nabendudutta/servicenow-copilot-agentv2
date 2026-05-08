@@ -45,10 +45,10 @@ TABLES = {
         "limit": 200
     },
 
-    "sc_cat_item": {
-        "query": "active=true",
-        "limit": 200
-    },
+    #"sc_cat_item": {
+     #   "query": "active=true",
+      #  "limit": 200
+    #},
 
     "sc_req_item": {
         "query": "",
