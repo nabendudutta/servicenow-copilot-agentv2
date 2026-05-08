@@ -8,7 +8,9 @@ from langchain_openai import OpenAIEmbeddings
 from dotenv import load_dotenv
 
 load_dotenv()
-
+github_token = os.getenv("GITHUB_TOKEN")
+if not github_token:
+    raise ValueError("GITHUB_TOKEN is not set. Add it to your .env file or environment.")
 # ============================================
 # Load Markdown Files
 # ============================================
