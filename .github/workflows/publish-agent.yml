@@ -6,21 +6,16 @@ on:
     branches:
       - main
 
-    paths:
-      - '.github-copilot/**'
-      - 'knowledge/**'
-      - 'vectordb/**'
-
   workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
 
-  validate-and-publish:
+  publish:
 
     runs-on: ubuntu-latest
-
-    permissions:
-      contents: write
 
     steps:
 
@@ -35,40 +30,30 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          python -m pip install --upgrade pip
+
           pip install -r requirements.txt
 
       - name: Validate Agent File
         run: |
 
-          echo "Validating GitHub Copilot agent"
-
-          test -f .github-copilot/agents/servicenow-copilot.agent.md
+          if [ ! -f ".github-copilot/agents/servicenow-copilot.agent.md" ]; then
+            echo "Agent file missing"
+            exit 1
+          fi
 
           echo "Agent file exists"
 
-      - name: Validate Prompt Files
-        run: |
-
-          echo "Checking prompts"
-
-          ls -la .github-copilot/prompts/
-
       - name: Validate Knowledge Directory
         run: |
-
-          echo "Checking knowledge directory"
 
           ls -la knowledge/
 
       - name: Validate Vector Database
         run: |
 
-          echo "Checking vector database"
-
           ls -la vectordb/
 
-      - name: Generate Build Metadata
+      - name: Create Build Metadata
         run: |
 
           mkdir -p build
@@ -81,33 +66,16 @@ jobs:
 
         with:
           name: servicenow-copilot-agent
+
           path: |
             .github-copilot/
             knowledge/
             vectordb/
             build/
 
-      - name: Commit Build Metadata
-        run: |
-
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-
-          git add build/
-
-          git commit -m "Update agent build metadata" || echo "No changes"
-
-          git push
-
       - name: Publish Status
         run: |
 
-          echo "===================================="
-          echo "ServiceNow Copilot Agent Published"
-          echo "===================================="
-
-          echo "Agent Name: ServiceNow Copilot"
-          echo "Knowledge Sync: Enabled"
-          echo "Internet Fallback: Enabled"
-          echo "Vector DB: Updated"
-          echo "Enterprise DevOps Mode: Enabled"
+          echo "=================================="
+          echo "ServiceNow Copilot Agent Ready"
+          echo "=================================="
