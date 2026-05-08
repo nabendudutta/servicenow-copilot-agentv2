@@ -3,7 +3,9 @@ import re
 import sys
 
 # Characters not allowed in filenames (NTFS and cross-platform safe)
-INVALID_CHARS = r'":<>|*?\r\n'
+#INVALID_CHARS = r'":<>|*?\r\n'
+
+INVALID_CHARS = ['"', ':', '<', '>', '|', '*', '?', '\r', '\n']
 
 def has_invalid_chars(name: str) -> bool:
     """Check if filename contains any invalid characters."""
@@ -62,7 +64,9 @@ def rename_and_cleanup(root_dir: str = "."):
             continue
 
         # Case 3: Safe to rename
-        os.rename(old_path, new_path)
+        #os.rename(old_path, new_path)
+        shutil.copy2(old_path, new_path)  # copy with metadata
+        os.remove(old_path)               # explicitly delete original
         print(f"  Cleaned  : {new_path}")
         print(f"  Action   : [RENAMED]\n")
         renamed.append((old_path, new_path))
