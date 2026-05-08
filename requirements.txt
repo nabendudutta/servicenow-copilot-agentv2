@@ -25,3 +25,4 @@ pandas==2.2.3
 pydantic==2.11.4
 
 GitPython==3.1.44
+unstructured==0.13.5
