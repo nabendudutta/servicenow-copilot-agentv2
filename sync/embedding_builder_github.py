@@ -7,10 +7,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# Fail fast if token is missing
-github_token = os.getenv("GITHUB_TOKEN")
-if not github_token:
-    raise ValueError("GITHUB_TOKEN is not set. Add it to your .env file or environment.")
+GITHUB_TOKEN: ${{ secrets.GH_PAT }}
 
 # ============================================
 # Load Markdown Files
