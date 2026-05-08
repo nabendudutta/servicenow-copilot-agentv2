@@ -41,6 +41,17 @@ print(f"Created {len(chunks)} chunks")
 # ============================================
 # Create Embeddings using GitHub Models API
 # ============================================
+
+github_token = os.getenv("GITHUB_TOKEN")
+
+print(f"DEBUG: GITHUB_TOKEN present = {bool(github_token)}, length = {len(github_token) if github_token else 0}")
+
+if not github_token:
+    raise ValueError(
+        "GITHUB_TOKEN is None or empty.\n"
+        "In GitHub Actions: ensure secret GH_PAT exists and is passed via step env.\n"
+        "Locally: ensure GITHUB_TOKEN is set in your .env file."
+    )
 embeddings = OpenAIEmbeddings(
     model="text-embedding-3-small",
     api_key=github_token,                              # ✅ fixed: was GITHUB_TOKEN
