@@ -43,7 +43,7 @@ print(f"Created {len(chunks)} chunks")
 # ============================================
 embeddings = OpenAIEmbeddings(
     model="text-embedding-3-small",
-    api_key=GITHUB_TOKEN,
+    api_key=github_token,                              # ✅ fixed: was GITHUB_TOKEN
     base_url="https://models.inference.ai.azure.com"
 )
 
